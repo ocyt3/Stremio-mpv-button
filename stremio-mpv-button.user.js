@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://web.stremio.com/*
 // @grant       none
-// @version     0.2
+// @version     0.2.1
 // @author      ocyt3
 // @description 2/8/2024, 8:50:17 PM
 // ==/UserScript==
@@ -18,6 +18,20 @@ let styles = `
   }
 `
 let urlRegex = /web.stremio.com.#.player\//;
+
+async function waitForElement(selector, timeout = 15000) {
+  const start = Date.now();
+
+  while (Date.now() - start < timeout) {
+    const el = document.querySelectorAll(selector);
+    if (el.length == 1) {
+      return el;
+    }
+    await new Promise(resolve => setTimeout(resolve, 500));
+  }
+
+  return null;
+}
 
 // detect url change https://stackoverflow.com/a/52809105
 (() => {
@@ -42,26 +56,13 @@ let urlRegex = /web.stremio.com.#.player\//;
     });
 })();
 
-async function waitForElement(selector, timeout = 15000) {
-  const start = Date.now();
-
-  while (Date.now() - start < timeout) {
-    const el = document.querySelectorAll(selector);
-    if (el.length == 1) {
-      return el;
-    }
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
-
-  return null;
-}
-
-window.addEventListener('locationchange', function () {
+function doTheThing(){
   if (document.URL.match(urlRegex)){
     waitForElement('[ class^="control-bar-buttons-menu-container" ]').then(menubarContainer => {
       let buttonContainer = document.createElement("a")
       var styleSheet = document.createElement("style")
       styleSheet.innerText = styles
+      styleSheet.id = "customStyleSheet"
       document.head.appendChild(styleSheet)
 
       buttonContainer.style.cssText = 'align-items: center; display: flex; flex: none; height: 5rem; justify-content: center; width: 4rem;'
@@ -71,5 +72,14 @@ window.addEventListener('locationchange', function () {
 
       menubarContainer[0].childNodes[menubarContainer[0].childElementCount - 1].before(buttonContainer)
     });
+  } else {
+    let styleSheetId = document.getElementById("customStyleSheet")
+    document.head.removeChild(styleSheetId);
   }
+}
+
+window.addEventListener('locationchange', function () {
+  doTheThing();
 });
+
+doTheThing();
