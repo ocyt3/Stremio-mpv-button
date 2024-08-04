@@ -68,7 +68,7 @@ function doTheThing(){
       buttonContainer.style.cssText = 'align-items: center; display: flex; flex: none; height: 5rem; justify-content: center; width: 4rem;'
       buttonContainer.title = 'Open mpv'
       buttonContainer.insertAdjacentHTML("afterbegin", mpvIcon);
-      buttonContainer.href = 'mpvurl://'
+      buttonContainer.href = 'mpv://'
 
       menubarContainer[0].childNodes[menubarContainer[0].childElementCount - 1].before(buttonContainer)
     });
