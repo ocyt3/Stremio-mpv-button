@@ -12,5 +12,5 @@ To get the script to work you have to add a URL Protocol for URL handeling to th
 - Make sure to have a userscript addon/extension installed eg. Violetmonkey, Greasemonkey or Firemonkey.
 - After that just click install script button below.
 ### Linux
-
+https://unix.stackexchange.com/questions/497146/create-a-custom-url-protocol-handler
 ## [Install script](https://github.com/ocyt3/Stremio-mpv-button/raw/main/stremio-mpv-button.user.js)
