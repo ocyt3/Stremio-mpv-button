@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Mpv Scheme Handler
+Exec='/home/isaaki/.scripts/mpv_link_launcher.sh'
+StartupNotify=false
+Icon=utilities-terminal
+MimeType=x-scheme-handler/mpv;
